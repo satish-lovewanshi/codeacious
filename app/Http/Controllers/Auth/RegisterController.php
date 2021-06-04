@@ -56,12 +56,12 @@ class RegisterController extends Controller
 
             // Validate Custom Field Of Registration Form 
 
-            'phone' =>['required', 'number',],
-            'address'=>['required', 'string',],
-            'city' => ['required', 'string',],
-            'state' => ['required', 'string',],
-            'country' => ['required', 'string',],
-            'zip' => ['required', 'number',]
+            'phone' =>['required', 'numeric','min:10',],
+            'address'=>['required', 'string',"max:255"],
+            'city' => ['required', 'string','max:255'],
+            'state' => ['required', 'string','max:255'],
+            'country' => ['required', 'string','max:255'],
+            'zip' => ['required', 'numeric','min:6',]
         ]);
     }
 
@@ -74,14 +74,15 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
+            // dd($data),
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
 
             // Store Custom Field data in User table
-            
-            'phone' =>$data['phone'],
-            'address'=>$data['address'],
+            var_dump($data['phone']),
+            'phone' => $data['phone'],
+            'address'=> $data['address'],
             'city' => $data['city'],
             'state' =>$data['state'],
             'country' =>$data['country'],
